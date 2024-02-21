@@ -23,6 +23,8 @@
             android:src="@drawable/cover1" />
 
         <TextView
+            android:text="title"
+            android:layout_marginStart="110dp"
             android:id="@+id/title_book"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -109,7 +111,7 @@
                 app:srcCompat="@drawable/minus" />
 
             <TextView
-                android:id="@+id/price"
+                android:id="@+id/quantity"
                 android:layout_width="37dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
@@ -126,15 +128,26 @@
 
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/total"
+            android:layout_width="118dp"
+            android:layout_height="31dp"
+            android:text="Total"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginTop="2dp"/>
+
+
         <Button
             android:id="@+id/buy"
             android:layout_width="112dp"
             android:layout_height="55dp"
-            android:layout_marginStart="255dp"
-            android:layout_marginTop="45dp"
+            android:layout_marginStart="240dp"
             android:backgroundTint="@color/lavender"
             android:text="Buy"
             android:textSize="20dp"
+
             android:textStyle="bold" />
 
     </LinearLayout>

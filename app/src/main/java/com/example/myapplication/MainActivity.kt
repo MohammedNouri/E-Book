@@ -3,6 +3,7 @@ package com.example.myapplication
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.SearchView
 
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -29,6 +30,17 @@ class MainActivity : AppCompatActivity(),CustomAdapter.OnItemClickListener{
         btnAudio = findViewById(R.id.Audio_book)
         btnRead = findViewById(R.id.Ebook)
         myView = findViewById(R.id.View_Bokk)
+       val searchView = findViewById<SearchView>(R.id.searchViewBook)
+        searchView.setOnQueryTextListener(object  : SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                viewModel.searchBook(newText)
+                return true
+            }
+        })
         var bundel = intent.extras
         val title = bundel?.getString("title")
         val writer = bundel?.getString("writer")
@@ -46,7 +58,7 @@ class MainActivity : AppCompatActivity(),CustomAdapter.OnItemClickListener{
             "A fantasy novel by J.R.R. Tolkien about Bilbo Baggins' journey.",
             "An epic fantasy series by J.R.R. Tolkien about the quest to destroy the One Ring."
         )
-        val listTypes = listOf("ReadBook,AudioBook")
+        val listTypes = listOf("ReadBook","AudioBook")
         val minPrice = 10.0
         val maxPrice = 50.0
         val gridLayoutManager = GridLayoutManager(application,2)
@@ -55,10 +67,13 @@ class MainActivity : AppCompatActivity(),CustomAdapter.OnItemClickListener{
             myView.layoutManager = gridLayoutManager
             myView.adapter = CustomAdapter(boklist,this)
         }
+
         for ( i in 0..listImages.size-1){
             val price = minPrice + Random.nextDouble() * (maxPrice - minPrice)
-            val randomNumber = Random.nextInt(2)
-            viewModel.addBook(ModelBook(listTitres[i],listImages[i],listAuthors[i],price.toString(),listTypes[randomNumber],descriptions[i]))
+            val partieDecimale = price.toString().split(".")[1]
+            val deuxChiffresApresVirgule = partieDecimale.take(2)
+            val randomNumber =  Random.nextInt(2)
+            viewModel.addBook(ModelBook(listTitres[i],listImages[i],listAuthors[i], price = deuxChiffresApresVirgule,listTypes[randomNumber],descriptions[i]))
         }
 
 
@@ -88,12 +103,16 @@ class MainActivity : AppCompatActivity(),CustomAdapter.OnItemClickListener{
     }
 
     override fun onItemSelected(modelBook: ModelBook) {
+        val intent = Intent(this@MainActivity,Detailt_activity::class.java)
          val bundle = Bundle()
+        val image = bundle?.putInt("image",modelBook.ImageBook)
          val title = bundle?.putString("title",modelBook.title)
         val writer =  bundle?.putString("writer",modelBook.title)
         val price = bundle?.putString("price",modelBook.price)
         val description = bundle?.putString("descriptionn",modelBook.description)
-        Toast.makeText(applicationContext,modelBook.title+" "+modelBook.title+" "+modelBook.price,Toast.LENGTH_LONG).show()
+        intent.putExtras(bundle)
+        startActivity(intent)
+
 
     }
 

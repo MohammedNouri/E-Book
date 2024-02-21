@@ -13,11 +13,21 @@ class AddBook_MVVM : ViewModel(){
     fun addBook(book: ModelBook){
         repository.addBook(book)
     }
+    fun searchBook(text : String){
+        repository.searchBook(text)
+    }
     fun deleteBook(book: ModelBook){
         repository.deleteContact(book)
     }
+    fun allBook() : List<ModelBook> {
+        return  repository.getAllBook()
+    }
     fun getAllBook() : MutableLiveData<List<ModelBook>> {
         list.value = repository.getAllBook()
+        return list
+    }
+    fun getAllBookSearch() : MutableLiveData<List<ModelBook>>{
+        list.value = repository.getAllBookSearch()
         return list
     }
 }

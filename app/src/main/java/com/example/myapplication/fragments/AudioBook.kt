@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.CustomAdapter
 import com.example.myapplication.R
+import com.example.myapplication.addBook.AddBook_MVVM
 import com.example.myapplication.model.ModelBook
 
 // TODO: Rename parameter arguments, choose names that match
@@ -28,6 +29,7 @@ class AudioBook : Fragment(),CustomAdapter.OnItemClickListener {
     private var param2: String? = null
     private lateinit var bookList : ArrayList<ModelBook>
     private lateinit var customAdapter: CustomAdapter
+    private lateinit var viewModel : AddBook_MVVM
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
