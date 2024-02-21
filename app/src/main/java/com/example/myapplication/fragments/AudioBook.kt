@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -23,7 +22,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [AudioBook.newInstance] factory method to
  * create an instance of this fragment.
  */
-class AudioBook : Fragment() {
+class AudioBook : Fragment(),CustomAdapter.OnItemClickListener {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -49,7 +48,7 @@ class AudioBook : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         bookList = ArrayList()
-        customAdapter = CustomAdapter(bookList)
+        customAdapter = CustomAdapter(bookList,this)
         bookList.add(ModelBook("Palestine",R.drawable.download))
         bookList.add(ModelBook("Morroco",R.drawable.download))
         bookList.add(ModelBook("Alegmant",R.drawable.download))
@@ -85,5 +84,9 @@ class AudioBook : Fragment() {
                     putString(ARG_PARAM2, param2)
                 }
             }
+    }
+
+    override fun onItemSelected(modelBook: ModelBook) {
+        TODO("Not yet implemented")
     }
 }
